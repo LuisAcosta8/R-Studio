@@ -1,0 +1,237 @@
+#R studio
+4 paneles
+-Consola
+-Entorno de variables
+-Editor
+-Utilidades
+
+
+*Atajos de teclado
+ctrl + enter = run
+
+
+#	--->	Comentarios			--->	# Hola este es un comentario	
+<- ó =	--->	Asignacion de variables		--->	Mango <- 25
+
+
+*Tipos de datos
+**numeric
+**character
+**logical
+class()	 --->	Muestra el tipo de dato		--->	class(variableodato)
+
+
+*Vectores
+**Cada vector debe tener un solo tipo de dato
+nombrevector <- c(a,b,c)	---> Crear vector 		--->	nombre vector <- c(0,1,2) ó c("a","b","c") ó c(TRUE,FALSE)
+*Operaciones matematicas
+vector + ó - ó * ó / num
+*Funciones vectores
+length(), sum, mean() 	--->	longitud, suma, media	-->	length(nombre vector)
+*Index
+**Posición
+c[num]	-->	Seleccionar algun elemento de un vector -->	nombre vector <- c("Luis","Alberto","Ac")	-->	nombre vector[1] = "Luis" ó nombre vector[c(1,3)] = "Luis"	"Alberto"
+**Condición
+nombrevector <- condición
+partecondicion [nombrevector]
+nombre vector[condición]
+
+
+*Matrices
+matrix(data,
+	nrow = num,	-->	nombrematriz <- matrix( datos, nrow= 3, ncol = 3)
+	ncol = num)
+
+colname(nombrematriz) <- ('nombrecolumna') ó colname(nombrematriz) <- c('nombrecolumna1','nombrecolumna2','nombrecolumna3')
+rowname(nombrematriz) <- ('nombrefila') ó rownames(nombrematriz) <- c('nombrefila1','nombrefila2','nombrefila3')
+*Operaciones matematicas
+nombrematriz + ó - ó * ó / num	-->	Realiza la operación a todos los elementos de la matriz
+**Selección única
+nombrematriz [fila,columna]
+nombrematriz['nombrefila','nombrecolumna']
+**Selección multiple
+nombrematriz[fila,columna]	-->	nombrematriz[c(num1,num2),c(num1,num2)]
+nombrematriz[fila,columna]	-->	nombrematriz[num,nombres]	-->	nombrematriz[c(num1,num2),c('nombrecolumna')]
+**Selección toda la fila
+nombrematriz[fila,]		-->	nombrematriz[num,]	-->	nombrematriz[c('Nombrefila'),]
+**Selección toda la columna
+nombrematriz[,columna]		-->	nombrematriz[,num]	-->	nombrematriz[,c('Nombrecolumna')]
+
+
+*Factores
+**Estructura de datos para manejar variables categoricas
+**Se necesita tener un objeto en R
+ej.
+tallas <- c('m', 'g', 'S', 'S', 'm', 'M')
+plot(tallas)
+-Dara error
+1) Crear un factor a partir de tallas
+factor(vector)	-->	tallas_factor <- factor(tallas)
+-no da error si se grafica pero tiene el detalle que por cada letra mayuscula y minuscula realiza una serie de datos
+plot(tallas_factor)
+Para quitar este detalle se tiene q modificar la funcion factor
+factor(vector,					-->		factor(tallas,
+	ordered = TRUE/FALSE						ordered = TRUE			--> Para darle un orden
+	levels = vector_niveles,		-->			levels = c("g","m","M","S"),	--> "Valores viejos"(Con una sola mencion basta)
+	labels = vector_etiquetas)		-->			labels = c("G","M","M","S"))	--> "Valores nuevos"
+Las categorias o clases de un factor se llaman niveles
+-Si se grafica de nuevo realizara la grafica correctamente
+plot()
+tallas <- c("m","g","S","S","m","M")
+tallas_factor <- factor(tallas)
+plot(tallas_factor)
+factor_recodificado <- factor(tallas,
+				ordered = TRUE,
+			       	levels = c("S","m","M","g"),
+    				labels = c("S",,"M","M","G")))
+Si imprimimos factor_recodificado devuelve	-->	S < M < G
+
+ó
+
+tallas <- c("m","g","S","S","m","M")
+tallas_factor <- factor(tallas)
+plot(tallas_factor)
+plot(factor(tallas,
+	ordered = TRUE,
+       	levels = c("S","m","M","g"),
+       	labels = c("S",,"M","M","G")))
+
+
+
+*Dataframes
+**Estructura de datos (como hojas de excel)
+**Utiliza diferentes tipos de variables0
+data.frame(vector1,
+		vector2,
+		vector3)
+
+-Los vectores deben tener la misma cantidad de datos sino dara un error
+-R coloca los nombres de los vectores como nombres de las columnas del dataframe
+-Cambiar nombre de las columnas en un dataframe
+names(nombredataframe) <- c('nuevos nombres')
+
+*Selección
+Misma forma de seleccionar colunmas y filas que en una matriz*
+*Se puede utilizar el signo de $ para seleccionar columnas
+
+nombredf[fila,columna]
+nombredf[fila/filas,nombrecolumna/columnas]
+nombredf[fila,]
+
+nombredf[,columna]
+nombredf$nombrecolumna	<-- sin comillas
+
+*Ordenar dataframe
+1) Guardar los indices ordenados
+indices <- order(dataframe$columna,
+				decreasing* = TRUE/FALSE)
+				*decreasing = false --> menor a Mayor
+				*decreasing = true --> mayor a menor
+2)Seleccionar el dataframe con indices
+dataframe[indices,]
+
+*Listas
+**Guardan diferentes objetos en un mismo objeto
+**Son usadas por otras funciones de R para guardar sus resultados como en una regresion lineal
+list(objeto1,
+	objeto2,
+	objeto3)
+
+-Cambiar nombre con names
+names(lista) <- c('')
+*Selección
+lista[['vector']][index]
+lista[['dataframe']][fila,columna]
+lista[['matriz']][columna,vector]
+*Se puede usar $ para seleccionar elementos de una lista pero no es recomendable para no confundir con las columnas de un dataframe
+
+*Agregar o quitar elementos a una lista
+lista[['nombreobjeto']] <-- objeto
+*Eliminar un objeto
+lista[['nombreobjeto']] <-- NULL
+
+*Paquetes
+**Instalar paquetes en r
+**Consola
+install.packages('nombre')
+**Utilidades R studio
+-pestaña packages
+-seleccionar repositorio en install from
+-escribir el nombre del paquete
+-install
+*Como cragar paquetes ya instalados	**Consola
+library('nombre')
+**Utilidades R studio
+-Pestaña packages
+-Buscar paquete
+-Click en el cuadro
+
+**Ayuda de algun paquete
+help('nombredelpaquete')
+
+
+*Importar datos de excel a R
+**Paquete readxl
+**Ruta del archivo
+-Se puede buscar la ruta del arhico con		-->		file.choose()
+-Ver hojas que contiene el archivo excel	-->		excel_sheets(rutadelarchivo)
+
+**Código
+-	read_excel(rutadelarchivo)
+***Caso ideal (=hoja1,celda:A1)[hoja,celda]
+nombrevariable	<--	read_excel(rutadelarchivo) (tibble: estructura de datos tipo dataframe)
+***Caso Medio (!=Primerhoja,A1)[hoja,celda]
+nombrevariable	<--	read_excel(rutadelarchivo,
+sheet = 'numero/nombredehoja')
+***Caso boss (!=hoja1,!=A1)[hoja,celda] 
+nombrevariable	<--	read_excel(rutadelarchivo,
+sheet = 'numero/nombredehoja',
+range = 'rangodeceldas')
+
+**Interfaz
+->File
+-->import dataset
+--->from excel
+
+*Graficar
+plot(x = variables, y = variables)
+
+r-graph-gallery.com
+
+**Editar
+plot(x = variables, 
+	y = variables,
+	main = 'titulo',
+	xlab = 'titulo eje x',
+	ylab = 'titulo eje y',
+	col = 'color'
+	pch = tipodepunto,
+	panel.first = lineasdefondo)
+
+*ggplot2
+**Partes de una grafica
+***Layers o capas
+-Datos
+-Mapping (Que datos van en cada eje dentro de la funcion aes())
+-Geometrias
+-Elementos visuales (aestetics)
+--Eje X
+--Eje Y
+--Color
+--Tamaño
+
+*******Otros paquetes para graficar*******
+- Flexdashboard
+- RGL
+- Plotly
+- Leaflet
+- RColorBrewer
+- Shiny
+- Highcharter
+- Dygraphs
+- SunburstR
+- Ggvis
+
+*Histogramas
+
+
