@@ -1,237 +1,311 @@
-#R studio
-4 paneles
--Consola
--Entorno de variables
--Editor
--Utilidades
 
 
-*Atajos de teclado
-ctrl + enter = run
+#Variables
+nombrevariable = valor
+nombrevariable <- valor
+
+*Ejemplos
+a <- 18
+word <- "Hola"
+
+#Vectores
+c('','','') --> Concatena todos los elementos que recibe como argumentos
+nombrevector <- c(v1, v2, v3)
+	- c = conjunto
+	- v = valor
+
+*Ejemplos
+hola <- c('hola','te','estoy','saludando')
+nums <- c(1,2,3,4,5)
 
 
-#	--->	Comentarios			--->	# Hola este es un comentario	
-<- ó =	--->	Asignacion de variables		--->	Mango <- 25
+-Un vector está formado por elementos del mismo tipo. Si se mezclan números y cadenas de caracteres, se obtendrá un vector alfanumérico. Si se mezclan números reales y complejos, se obtendrá un vector de números complejos.
+
+Acceder a un vector
+nombrevector[num/"name"/c(num)]
+	- num --> Puede ser el numero o nombre del elemento o conjunto de elementos
+
+*Ejemplos
+hola <- c('hola','te','estoy','saludando')
+hola[1] --> 'hola'
+hola[1:3] --> 'hola' 'te' 'estoy'
+hola[c(1,3)] --> 'hola' 'estoy'
+x <- c(1:7) --> 1 2 3 4 5 6 7
 
 
-*Tipos de datos
-**numeric
-**character
-**logical
-class()	 --->	Muestra el tipo de dato		--->	class(variableodato)
+Funciones de los vectores
+names() --> Permite asignar nombre a los elementos de un vector
+names(nombre del vector) --> c("name1","name2","name3")
+
+*Ejemplos
+hola <- c('hola','te','estoy','saludando')
+names(hola) <- c('hi','i','am','gretting you')
+hola --> 'hola'(hi) 'te'(i) 'estoy'(am) 'saludando'(gretting you)
+
+seq()	--> Permite construir vectores que son sucesiones equiespaciadas
+
+seq(from,		-->	Valor inicial de la sucesion
+	to,		-->	Valor final de la sucesion
+	by,		-->	Espaciado entre elementos
+	length,		-->	Longitud del valor resultante
+	along)		-->	Objeto cuya longitud se usa para el objeto a construir
+
+*Ejemplos
+seq(1, 100, length = 5) --> 1.00 25.75 50.50 75.25 100.00
+x <- c (1: 7)
+x [seq (1, 7, by = 2)] --> 1 3 5 7
+
+mode()	--> Devuelve o modifica el tipo de un objeto
+mode(objeto)
+
+*Ejemplos
+x = 1:5
+mode(x) --> “numeric”
 
 
-*Vectores
-**Cada vector debe tener un solo tipo de dato
-nombrevector <- c(a,b,c)	---> Crear vector 		--->	nombre vector <- c(0,1,2) ó c("a","b","c") ó c(TRUE,FALSE)
-*Operaciones matematicas
-vector + ó - ó * ó / num
-*Funciones vectores
-length(), sum, mean() 	--->	longitud, suma, media	-->	length(nombre vector)
-*Index
-**Posición
-c[num]	-->	Seleccionar algun elemento de un vector -->	nombre vector <- c("Luis","Alberto","Ac")	-->	nombre vector[1] = "Luis" ó nombre vector[c(1,3)] = "Luis"	"Alberto"
-**Condición
-nombrevector <- condición
-partecondicion [nombrevector]
-nombre vector[condición]
+#Factor
+factor()	-->	Crea un vector de variables cualitativas
+
+factor(x, 		-->	Son los datos a partir de los cuales se genera el factor
+	levels,		-->	Niveles(opcional), los valores de x que no correspondan a uno de los indicados se sustituyen por NA		
+	labels,		-->	Es un vector de valores que se utiliza como etiquetas de los niveles
+	exclude,	-->	Es un vector de valores que deben excluirse de la formacion de niveles por y sustituirse por NA
+	ordered)	-->	Valor logico (TRUE/FALSE) utilizado para ordenar
+	
+
+*Ejemplo
+sexo <- c (“Hombre”, “Mujer”, “Mujer”,”Hombre”, “Hombre” ,”Mujer”, “Hombre”)
+nombre <-c (“Pedro”, “Alicia”, “Ana”, “Manolo”, “Germán”, “María”, “Juan”)
+sexo <- factor (sexo)
+sexo
+Hombre Mujer  Mujer  Hombre Hombre Mujer  Hombre
+Levels: Hombre Mujer
 
 
-*Matrices
-matrix(data,
-	nrow = num,	-->	nombrematriz <- matrix( datos, nrow= 3, ncol = 3)
-	ncol = num)
+#Matrices
+matrix()	-->	
 
-colname(nombrematriz) <- ('nombrecolumna') ó colname(nombrematriz) <- c('nombrecolumna1','nombrecolumna2','nombrecolumna3')
-rowname(nombrematriz) <- ('nombrefila') ó rownames(nombrematriz) <- c('nombrefila1','nombrefila2','nombrefila3')
-*Operaciones matematicas
-nombrematriz + ó - ó * ó / num	-->	Realiza la operación a todos los elementos de la matriz
-**Selección única
-nombrematriz [fila,columna]
+matrix(datavector,	-->	Contiene los valores que formarán la matriz. Debe tener en cuenta que si no es suficientemente grande, se repetirá las veces que sea necesario
+	nrow,		-->	Número de filas.Si no especifica, se toma nrow = 1
+	ncol,		-->	Número de columnas
+	byrow,		-->	Variable lógica que indica si la matriz debe construirse por filas o por columnas. El valor predeterminado es F
+	dimnames)	-->	Lista de longitud 2 con los nombres de las filas y las columnas
+
+Mediante los operadores rbind() (para pegar vectores por filas) y cbind() (para pegar vectores por columnas)
+
+matriz = rbind(x1,x2,...)
+matrix = cbind(x1,x2,...)
+
+*Ejemplos
+I)
+1) M = matrix( 1: 9, nrow = 3, byrow = TRUE) # la matriz se rellena por filas
+M
+	[,1]  [,2]  [,3]
+[1,]  	  1     2     3
+[2,]      4     5     6
+[3,]      7     8     9
+
+2) N = matrix( 1: 9, nrow = 3, byrow = FALSE) # la matriz se rrellena por columnas
+N
+	[,1]   [,2]   [,3]
+[1,]      1     4       7
+[2,]      2     5       8
+[3,]      3     6       9
+
+3) matrix(1:10,  5,  2, dimnames = list (c (“fila1”, “fila2”, “fila3”, “fila4”, “fila5”),  c(“columna1”, “columna2”)))
+	columna1 columna2
+fila1        1        6
+fila2        2        7
+fila3        3        8
+fila4        4        9
+fila5        5       10
+
+4) matrix(1:15, 3, 5)
+	[,1]  [,2]  [,3]  [,4]  [,5]
+[1,]      1     4     7    10    13
+[2,]      2     5     8    11    14
+[3,]      3     6     9    12    15
+
+Cuando la longitud del vector no coincide con el número de filas y columnas, los elementos de la matriz se repiten, por lo que R te da un warning advirtiendo que las salidas pueden no ser las deseadas.
+
+5) matrix( 1:15, 4, 6)
+	[,1]  [,2]  [,3]  [,4]  [,5]  [,6]
+[1,]      1     5      9    13    2     6
+[2,]      2     6     10    14    3     7
+[3,]      3     7     11    15    4     8
+[4,]      4     8     12    1     5     9
+Warning message
+In matrix(1:15, 4, 6) :
+data length [15] is not a sub-multiple or multiple of the number of rows [4]
+
+II) También podemos utilizar las funciones cbind y rbind para construir matrices:
+
+1)
+v1 = c(1,2,3,4)
+v2 = c(5,6,7,8)
+v3= c(9,10,11,12)
+FA = rbind(v1,v2,v3)
+FA
+    [,1]  [,2] [,3]  [,4]
+v1    1     2    3     4
+v2    5     6    7     8
+v3    9    10   11    12
+
+2)
+QA = cbind (v1, v2, v3)
+QA
+	v1  v2  v3
+[1,]     1   5   9
+[2,]     2   6  10
+[3,]     3   7  11
+[4,]     4   8  12
+
+3)
+matriz= rbind (c(1,2,3), c(4,5,6), c(7,8,9))
+matriz
+	[,1]  [,2]  [,3]
+[1,]      1    2      3
+[2,]      4    5      6
+[3,]      7    8      9
+
+4)
+matriz = cbind (c(1,2,3), c(4,5,6), c(7,8,9))
+matriz
+	[,1]  [,2]  [,3]
+[1,]      1     4     7
+[2,]      2     5     8
+[3,]      3     6     9
+
+
+Seleccion de elementos de una matriz
+
+
+nombrematriz[fila,columna]
 nombrematriz['nombrefila','nombrecolumna']
-**Selección multiple
-nombrematriz[fila,columna]	-->	nombrematriz[c(num1,num2),c(num1,num2)]
-nombrematriz[fila,columna]	-->	nombrematriz[num,nombres]	-->	nombrematriz[c(num1,num2),c('nombrecolumna')]
-**Selección toda la fila
-nombrematriz[fila,]		-->	nombrematriz[num,]	-->	nombrematriz[c('Nombrefila'),]
-**Selección toda la columna
-nombrematriz[,columna]		-->	nombrematriz[,num]	-->	nombrematriz[,c('Nombrecolumna')]
+nombrematriz[fila,]
+nombrematriz[,columna]
+nombrematriz['nombrefila',columna]
+nombrematriz[fila,'nombrecolumna']
+nombrematriz[c(filas),c(columnas)]
+nombrematriz[c(filas),'nombrecolumna']
+nombrematriz['nombrefila',c(columna)]
+nombrematriz[c(filas),]
+nombrematriz[,c(columnas)]
 
 
-*Factores
-**Estructura de datos para manejar variables categoricas
-**Se necesita tener un objeto en R
-ej.
-tallas <- c('m', 'g', 'S', 'S', 'm', 'M')
-plot(tallas)
--Dara error
-1) Crear un factor a partir de tallas
-factor(vector)	-->	tallas_factor <- factor(tallas)
--no da error si se grafica pero tiene el detalle que por cada letra mayuscula y minuscula realiza una serie de datos
-plot(tallas_factor)
-Para quitar este detalle se tiene q modificar la funcion factor
-factor(vector,					-->		factor(tallas,
-	ordered = TRUE/FALSE						ordered = TRUE			--> Para darle un orden
-	levels = vector_niveles,		-->			levels = c("g","m","M","S"),	--> "Valores viejos"(Con una sola mencion basta)
-	labels = vector_etiquetas)		-->			labels = c("G","M","M","S"))	--> "Valores nuevos"
-Las categorias o clases de un factor se llaman niveles
--Si se grafica de nuevo realizara la grafica correctamente
-plot()
-tallas <- c("m","g","S","S","m","M")
-tallas_factor <- factor(tallas)
-plot(tallas_factor)
-factor_recodificado <- factor(tallas,
-				ordered = TRUE,
-			       	levels = c("S","m","M","g"),
-    				labels = c("S",,"M","M","G")))
-Si imprimimos factor_recodificado devuelve	-->	S < M < G
+N
+	[,1]  [,2]  [,3]
+[1,]      1     4     7
+[2,]      2     5     8
+[3,]      3     6     9
+1) Segunda fila de la matriz N
+N[2, ]
+[1] 2 5 8
 
-ó
+2) La tercera columna de la matriz N
+N[ , 3 ]
+[1] 7 8 9
 
-tallas <- c("m","g","S","S","m","M")
-tallas_factor <- factor(tallas)
-plot(tallas_factor)
-plot(factor(tallas,
-	ordered = TRUE,
-       	levels = c("S","m","M","g"),
-       	labels = c("S",,"M","M","G")))
+3) Seleccionar la segunda y tercera fila
+N[2:3, ]
+	[,1] [,2] [,3]
+[1,]      2   5     8
+[2,]      3   6     9
+
+4) Seleccionar la segunda y tercera fila de las dos primeras columnas
+N[2:3, 1:2]
+	[,1] [,2]
+[1,]      2    5
+[2,]      3    6
 
 
+matriz
+	Peso Altura Edad
+[1,]     77   1.63   23
+[2,]     58   1.63   23
+[3,]     89   1.85   26
+[4,]     55   1.62   23
+[5,]     47   1.60   26
+[6,]     60   1.63   26
+[7,]     54   1.70   22
+[8,]     58   1.65   23
+[9,]     75   1.78   26
+[10,]    65   1.70   24
+[11,]    82   1.77   28
+[12,]    85   1.83   42
+[13,]    75   1.74   25
+[14,]    65   1.65   26
 
-*Dataframes
-**Estructura de datos (como hojas de excel)
-**Utiliza diferentes tipos de variables0
-data.frame(vector1,
-		vector2,
-		vector3)
+1) matriz[ ,1]
+[1] 77 58 89 55 47 60 54 58 75 65 82 85 75  65
 
--Los vectores deben tener la misma cantidad de datos sino dara un error
--R coloca los nombres de los vectores como nombres de las columnas del dataframe
--Cambiar nombre de las columnas en un dataframe
-names(nombredataframe) <- c('nuevos nombres')
+2) matriz [ ,”Peso”]
+[1] 77 58 89 55 47 60 54 58 75 65 82 85 75 65
 
-*Selección
-Misma forma de seleccionar colunmas y filas que en una matriz*
-*Se puede utilizar el signo de $ para seleccionar columnas
+Seleccionar un elemento
+matriz[4 , 2]	-->	Altura	-->	1.62
 
-nombredf[fila,columna]
-nombredf[fila/filas,nombrecolumna/columnas]
-nombredf[fila,]
+#Dataframe
+data.frame() 	-->	La adaptación de la matriz de datos al uso habitual en Estadística es el objeto data.frame().
 
-nombredf[,columna]
-nombredf$nombrecolumna	<-- sin comillas
+-La diferencia fundamental con la matrix() de datos es que data.frame() no tiene por qué estar compuesto de elementos del mismo tipo. Los objetos pueden ser vectores, factores, matrices, listas e incluso hojas de datos.
+-Las matrices, listas y hojas de datos, contribuyen con tantas variables como columnas tengan.
+-Los vectores numéricos y los factores se incluyen directamente y los vectores no numéricos se fuerzan como factores.
+-Para referirnos a cualquier elemento de la hoja de datos utilizaremos dos índices, de modo similar a una matriz.
 
-*Ordenar dataframe
-1) Guardar los indices ordenados
-indices <- order(dataframe$columna,
-				decreasing* = TRUE/FALSE)
-				*decreasing = false --> menor a Mayor
-				*decreasing = true --> mayor a menor
-2)Seleccionar el dataframe con indices
-dataframe[indices,]
+En el ejemplo anterior, al añadirle a la matrix() la variable sexo, la transforma en tipo numérico asignándole el valor 1 para hombre 2 para mujeres.
 
-*Listas
-**Guardan diferentes objetos en un mismo objeto
-**Son usadas por otras funciones de R para guardar sus resultados como en una regresion lineal
-list(objeto1,
-	objeto2,
-	objeto3)
+>mode(matriz)
+[1] “numeric”
 
--Cambiar nombre con names
-names(lista) <- c('')
-*Selección
-lista[['vector']][index]
-lista[['dataframe']][fila,columna]
-lista[['matriz']][columna,vector]
-*Se puede usar $ para seleccionar elementos de una lista pero no es recomendable para no confundir con las columnas de un dataframe
+Vamos a transformar la matriz en un data.frame().
 
-*Agregar o quitar elementos a una lista
-lista[['nombreobjeto']] <-- objeto
-*Eliminar un objeto
-lista[['nombreobjeto']] <-- NULL
+>dataframe<-data.frame(matriz)
+>dataframe
+	Peso Altura Edad Sexo
+1        77   1.63   23    1
+2    	 58   1.63   23    2
+3    	 89   1.85   26    1
+4    	 55   1.62   23    1
+5    	 47   1.60   26    2
+6    	 60   1.63   26    2
+7    	 54   1.70   22    1
+8    	 58   1.65   23    2
+9    	 75   1.78   26    2
+10   	 65   1.70   24    1
+11   	 82   1.77   28    1
+12   	 85   1.83   42    1
+13   	 75   1.74   25    2
+14   	 65   1.65   26    2
+De esta forma, hemos convertido la matriz de tipo numérico en un conjunto de datos con 4 variables y cada una con 14 observaciones.
 
-*Paquetes
-**Instalar paquetes en r
-**Consola
-install.packages('nombre')
-**Utilidades R studio
--pestaña packages
--seleccionar repositorio en install from
--escribir el nombre del paquete
--install
-*Como cragar paquetes ya instalados	**Consola
-library('nombre')
-**Utilidades R studio
--Pestaña packages
--Buscar paquete
--Click en el cuadro
+Para añadir una variable de tipo carácter, como por ejemplo los nombres de los individuos, en el data.frame, se puede hacer de la siguiente forma:
 
-**Ayuda de algun paquete
-help('nombredelpaquete')
+> Nombres = c (“Pepe”,”Ana”,”Manolo”,”Rafa”,”María”,”Auxi”,”Germán”,”Celia”,”Carmen”,”Juan”,”Dani”,”Antonio”,”Belinda”,”Sara”)
+>Nombres
+[1] “Pepe”    “Ana”     “Manolo”  “Rafa”    “María”   “Auxi”    “Germán”  “Celia”   “Carmen”
+[10] “Juan”    “Dani”    “Antonio” “Belinda” “Sara”
+
+dataframe1 <- data.frame(dataframe, Nombres)
+dataframe1
+
+    Peso Altura Edad Sexo Nombres
+1    77   1.63   23   1    Pepe
+2    58   1.63   23   2    Ana
+3    89   1.85   26   1    Manolo
+4    55   1.62   23   1    Rafa
+5    47   1.60   26   2    María
+6    60   1.63   26   2    Auxi
+7    54   1.70   22   1    Germán
+8    58   1.65   23   2    Celia
+9    75   1.78   26   2    Carmen
+10   65   1.70   24   1    Juan
+11   82   1.77   28   1    Dani
+12   85   1.83   42   1    Antonio
+13   75   1.74   25   2    Belinda
+14   65   1.65   26   2    Sara
 
 
-*Importar datos de excel a R
-**Paquete readxl
-**Ruta del archivo
--Se puede buscar la ruta del arhico con		-->		file.choose()
--Ver hojas que contiene el archivo excel	-->		excel_sheets(rutadelarchivo)
-
-**Código
--	read_excel(rutadelarchivo)
-***Caso ideal (=hoja1,celda:A1)[hoja,celda]
-nombrevariable	<--	read_excel(rutadelarchivo) (tibble: estructura de datos tipo dataframe)
-***Caso Medio (!=Primerhoja,A1)[hoja,celda]
-nombrevariable	<--	read_excel(rutadelarchivo,
-sheet = 'numero/nombredehoja')
-***Caso boss (!=hoja1,!=A1)[hoja,celda] 
-nombrevariable	<--	read_excel(rutadelarchivo,
-sheet = 'numero/nombredehoja',
-range = 'rangodeceldas')
-
-**Interfaz
-->File
--->import dataset
---->from excel
-
-*Graficar
-plot(x = variables, y = variables)
-
-r-graph-gallery.com
-
-**Editar
-plot(x = variables, 
-	y = variables,
-	main = 'titulo',
-	xlab = 'titulo eje x',
-	ylab = 'titulo eje y',
-	col = 'color'
-	pch = tipodepunto,
-	panel.first = lineasdefondo)
-
-*ggplot2
-**Partes de una grafica
-***Layers o capas
--Datos
--Mapping (Que datos van en cada eje dentro de la funcion aes())
--Geometrias
--Elementos visuales (aestetics)
---Eje X
---Eje Y
---Color
---Tamaño
-
-*******Otros paquetes para graficar*******
-- Flexdashboard
-- RGL
-- Plotly
-- Leaflet
-- RColorBrewer
-- Shiny
-- Highcharter
-- Dygraphs
-- SunburstR
-- Ggvis
-
-*Histogramas
-
+#Listas
+Una lista es un objeto formado por objetos de varias clases. Una colección de elementos que pueden ser de distintos tipos y que generalmente están identificados por un nombre. Para crear una lista se utiliza la función list()
 
